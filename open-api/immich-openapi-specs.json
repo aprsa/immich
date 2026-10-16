@@ -16194,6 +16194,15 @@
             }
           },
           {
+            "name": "isNotInAlbum",
+            "required": false,
+            "in": "query",
+            "description": "Show only assets that are not in any album",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
             "name": "isTrashed",
             "required": false,
             "in": "query",
@@ -16388,6 +16397,15 @@
             "required": false,
             "in": "query",
             "description": "Filter by favorite status (true for favorites only, false for non-favorites only)",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "isNotInAlbum",
+            "required": false,
+            "in": "query",
+            "description": "Show only assets that are not in any album",
             "schema": {
               "type": "boolean"
             }

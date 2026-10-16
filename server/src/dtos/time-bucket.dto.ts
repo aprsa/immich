@@ -20,6 +20,7 @@ const TimeBucketQueryBaseSchema = z
       .optional()
       .describe('Include stacked assets in the response. When true, only primary assets from stacks are returned.'),
     withPartners: stringToBool.optional().describe('Include assets shared by partners'),
+    isNotInAlbum: stringToBool.optional().describe('Show only assets that are not in any album'),
     order: AssetOrderSchema.optional().describe(
       'Sort order for assets within time buckets (ASC for oldest first, DESC for newest first)',
     ),
