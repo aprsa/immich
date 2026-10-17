@@ -35,15 +35,16 @@
   import { mdiDotsVertical } from '@mdi/js';
   import { DateTime } from 'luxon';
   import { t } from 'svelte-i18n';
+  import SearchButton from '$lib/components/shared-components/search-bar/SearchButton.svelte';
+  import { timelineNotInAlbum } from '$lib/stores/preferences.store';
 
   let timelineManager = $state<TimelineManager>() as TimelineManager;
 
-  let notInAlbum = $state(false);
   const options = $derived({
     visibility: AssetVisibility.Timeline,
     withStacked: true,
     withPartners: true,
-    isNotInAlbum: notInAlbum || undefined,
+    isNotInAlbum: $timelineNotInAlbum || undefined,
   });
 
   let selectedAssets = $derived(assetMultiSelectManager.assets);
@@ -97,9 +98,15 @@
 </script>
 
 <UserPageLayout hideNavbar={assetMultiSelectManager.selectionActive} scrollbar={false}>
-  <button onclick={() => (notInAlbum = !notInAlbum)} class="m-2 p-2 border rounded">
-    {notInAlbum ? 'Showing: not in album' : 'Showing: all'}
-  </button>
+  <div class="flex justify-end px-4 pt-2">
+    <SearchButton
+      checked
+      active={$timelineNotInAlbum}
+      onclick={() => ($timelineNotInAlbum = !$timelineNotInAlbum)}
+    >
+      {$t('search_filter_display_option_not_in_album')}
+    </SearchButton>
+  </div>
   <Timeline
     enableRouting={true}
     bind:timelineManager
