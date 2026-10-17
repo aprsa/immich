@@ -37,7 +37,14 @@
   import { t } from 'svelte-i18n';
 
   let timelineManager = $state<TimelineManager>() as TimelineManager;
-  const options = { visibility: AssetVisibility.Timeline, withStacked: true, withPartners: true };
+
+  let notInAlbum = $state(false);
+  const options = $derived({
+    visibility: AssetVisibility.Timeline,
+    withStacked: true,
+    withPartners: true,
+    isNotInAlbum: notInAlbum || undefined,
+  });
 
   let selectedAssets = $derived(assetMultiSelectManager.assets);
   let isLinkActionAvailable = $derived.by(() => {
@@ -90,6 +97,9 @@
 </script>
 
 <UserPageLayout hideNavbar={assetMultiSelectManager.selectionActive} scrollbar={false}>
+  <button onclick={() => (notInAlbum = !notInAlbum)} class="m-2 p-2 border rounded">
+    {notInAlbum ? 'Showing: not in album' : 'Showing: all'}
+  </button>
   <Timeline
     enableRouting={true}
     bind:timelineManager
